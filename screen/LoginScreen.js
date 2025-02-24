@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#F5F5F5',
   },
+  
   logo: {
     width: 120,
     height: 120,
