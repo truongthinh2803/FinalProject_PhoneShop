@@ -68,19 +68,20 @@ const CartScreen = ({ navigation }) => {
 
   const handlePlaceOrder = () => {
     const hasSelectedItems = Object.values(selectedItems).includes(true);
-  
+
     if (!hasSelectedItems) {
       Alert.alert('Thông báo', 'Vui lòng chọn ít nhất một sản phẩm để đặt hàng.');
       return;
     }
-  
+
     const itemsToOrder = cartItems.filter(item => selectedItems[item.id]);
-  
+
     navigation.navigate('OrderConfirmation', {
       selectedItems: itemsToOrder,
       totalPrice,
     });
   };
+
 
   return (
     <View style={tw`flex-1 bg-gray-100 p-4`}>
@@ -125,7 +126,7 @@ const CartScreen = ({ navigation }) => {
           <View style={tw`flex-1 justify-center items-center`}>
             <Icon name="shopping-cart" size={40} color="orange" />
             <Text style={tw`text-center text-lg font-bold text-blue-600 mt-2`}>
-              Giỏ hàng chưa có sản phẩm nào! 
+              Giỏ hàng chưa có sản phẩm nào!
             </Text>
             <Text style={tw`text-center text-base text-gray-500`}>
               Mua sắm ngay để không bỏ lỡ!

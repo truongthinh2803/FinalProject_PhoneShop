@@ -38,12 +38,12 @@ const LoginScreen = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-  
+
         // Lấy JWT token từ Firebase
         user.getIdToken()
           .then(async (token) => {
             await AsyncStorage.setItem('userToken', token); // Lưu token vào AsyncStorage
-  
+
             // Điều hướng trực tiếp đến trang Home sau khi đăng nhập thành công
             setLoading(false);
             navigation.navigate('Home');
@@ -58,7 +58,7 @@ const LoginScreen = () => {
         setLoading(false);
         Alert.alert('Đăng nhập thất bại!', 'Email hoặc mật khẩu không đúng!');
       });
-  };  
+  };
 
   if (loading) {
     return <LoadingScreen />;
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#F5F5F5',
   },
-  
   logo: {
     width: 120,
     height: 120,

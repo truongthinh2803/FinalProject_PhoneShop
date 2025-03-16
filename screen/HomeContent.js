@@ -166,9 +166,9 @@ const HomeContent = ({ navigation }) => {
             style={tw`bg-white mb-4 border border-gray-300 rounded-lg p-2 shadow-lg w-1/2`}
             onPress={() => handleViewDetails(item)}
           >
-            <Image 
-              source={{ uri: item.image }} 
-              style={tw`w-32 h-32 rounded-md mx-auto mt-2`} 
+            <Image
+              source={{ uri: item.image }}
+              style={tw`w-32 h-32 rounded-md mx-auto mt-2`}
               resizeMode="contain"
             />
             <View style={tw`mt-2 px-2`}>

@@ -36,7 +36,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
 
         // Sắp xếp đánh giá theo ngày mới nhất
         allReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        
+
         setReviews(allReviews); // Cập nhật state
       } catch (error) {
         console.error('Lỗi khi lấy đánh giá: ', error);
@@ -58,7 +58,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
               filteredProducts.push(currentProduct);
             }
           });
-        }        
+        }
         setSimilarProducts(filteredProducts); // Cập nhật state
       } catch (error) {
         console.error('Lỗi khi lấy sản phẩm tương tự: ', error);
@@ -94,7 +94,7 @@ const ProductDetailsScreen = ({ route, navigation }) => {
     const cartItem = {
       name: product.name,
       image: product.image,
-      quantity: 1, // Mặc định số lượng là 1
+      quantity: 1, //  Mặc định số lượng là 1
       totalPrice: product.price, // Tổng tiền
     };
 
@@ -133,13 +133,13 @@ const ProductDetailsScreen = ({ route, navigation }) => {
         totalPrice: product.price,
       },
     ];
-    
+
     // Chuyển đến màn hình xác nhận đơn hàng
     navigation.navigate('OrderConfirmation', {
       selectedItems: itemsToOrder,
       totalPrice: quantity * product.price,
     });
-    
+
     setModalVisible(false); // Đóng modal
   };
 
@@ -217,8 +217,8 @@ const ProductDetailsScreen = ({ route, navigation }) => {
           <Text style={tw`text-xl font-bold mb-4 text-gray-800`}>Sản phẩm tương tự</Text>
           <View style={tw`flex-row flex-wrap justify-between`}>
             {similarProducts.map((item) => (
-              <TouchableOpacity 
-                key={`${item.id}-${item.name}`} 
+              <TouchableOpacity
+                key={`${item.id}-${item.name}`}
                 style={tw`w-1/2 p-1`}
                 onPress={() => navigation.navigate('ProductDetails', { product: item, productId: item.id, userId })} // Thêm productId ở đây
               >
