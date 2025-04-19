@@ -20,12 +20,14 @@ const HomeContent = ({ navigation }) => {
   const [currentUserId, setCurrentUserId] = useState(null); // State để lưu userId
 
   useEffect(() => {
-    // Lấy userId từ Firebase
+    // Lấy userId từ Firebase khi component được mount hoặc khi user thay đổi
     const user = auth.currentUser;
     if (user) {
-      setCurrentUserId(user.uid); // Lưu userId vào state
+      setCurrentUserId(user.uid);
+    } else {
+      setCurrentUserId(null);
     }
-  }, []);
+  }, [auth.currentUser]);
 
   useEffect(() => {
     const fetchProducts = async () => {

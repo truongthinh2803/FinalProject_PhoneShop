@@ -70,7 +70,9 @@ const OrderScreen = () => {
   };
 
   const calculateTotalAmount = () => {
-    return filterOrders().reduce((total, order) => total + order.totalAmount, 0);
+    return filterOrders()
+      .filter(order => order.status !== 'Đã hủy')
+      .reduce((total, order) => total + order.totalAmount, 0);
   };
 
   const handleCancelOrder = (orderId) => {
