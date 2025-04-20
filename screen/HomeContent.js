@@ -20,12 +20,14 @@ const HomeContent = ({ navigation }) => {
   const [currentUserId, setCurrentUserId] = useState(null); // State để lưu userId
 
   useEffect(() => {
-    // Lấy userId từ Firebase
+    // Lấy userId từ Firebase khi component được mount hoặc khi user thay đổi
     const user = auth.currentUser;
     if (user) {
-      setCurrentUserId(user.uid); // Lưu userId vào state
+      setCurrentUserId(user.uid);
+    } else {
+      setCurrentUserId(null);
     }
-  }, []);
+  }, [auth.currentUser]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -166,9 +168,9 @@ const HomeContent = ({ navigation }) => {
             style={tw`bg-white mb-4 border border-gray-300 rounded-lg p-2 shadow-lg w-1/2`}
             onPress={() => handleViewDetails(item)}
           >
-            <Image 
-              source={{ uri: item.image }} 
-              style={tw`w-32 h-32 rounded-md mx-auto mt-2`} 
+            <Image
+              source={{ uri: item.image }}
+              style={tw`w-32 h-32 rounded-md mx-auto mt-2`}
               resizeMode="contain"
             />
             <View style={tw`mt-2 px-2`}>

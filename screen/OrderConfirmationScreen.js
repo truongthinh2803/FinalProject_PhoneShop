@@ -10,6 +10,7 @@ const formatPrice = (price) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' VNĐ';
 };
 
+
 const OrderConfirmationScreen = ({ route, navigation }) => {
   const { selectedItems, totalPrice } = route.params;
   const [userInfo, setUserInfo] = useState(null);
@@ -43,9 +44,9 @@ const OrderConfirmationScreen = ({ route, navigation }) => {
       setPointsUsed(0);
     }
   }, [useAllPoints, userPoints]);
-  
+
   useEffect(() => {
-    // Tính tổng tiền sau khi trừ điểm
+    // Tính tổng tiền 
     const priceAfterPoints = totalPrice - pointsUsed;
     setFinalPrice(priceAfterPoints < 0 ? 0 : priceAfterPoints);
   }, [pointsUsed, totalPrice]);

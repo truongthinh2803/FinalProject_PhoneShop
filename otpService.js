@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const mailjetApiKey = 'f17e3c9846e347d805d3bf7062c302b1'; // Thay bằng API Key của bạn
-const mailjetSecretKey = 'c63de86d6616fe7e59d28d712925150f'; // Thay bằng Secret Key của bạn
+const mailjetApiKey = '781bd0dd1fe2b98da418c38bb46a6dfb'; // Thay bằng API Key của bạn
+const mailjetSecretKey = '901f77d40741eaeefb4387fe2959553d'; // Thay bằng Secret Key của bạn
 
 // Hàm sinh mã OTP
 export const generateOTP = () => {
@@ -14,7 +14,7 @@ export const sendOTPEmail = async (email, otp) => {
     Messages: [
       {
         From: {
-          Email: "truongthinhhj@gmail.com", // Email người gửi
+          Email: "giakiet360@gmail.com", // Email người gửi
           Name: "Mobile Shop", // Tên người gửi
         },
         To: [

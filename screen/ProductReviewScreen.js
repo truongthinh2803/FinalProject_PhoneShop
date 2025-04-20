@@ -4,18 +4,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as ImagePicker from 'expo-image-picker'; // Import thư viện chọn ảnh
 import tw from 'tailwind-react-native-classnames';
 import { database, storage } from '../firebase'; // Thêm Firestore Storage
-import { get, ref, set, onValue } from 'firebase/database'; 
-import { getAuth, onAuthStateChanged } from 'firebase/auth'; 
+import { get, ref, set, onValue } from 'firebase/database';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getStorage, uploadBytes, getDownloadURL, ref as storageRef } from 'firebase/storage'; // Import các hàm liên quan đến Firebase Storage
 
 const ProductReviewScreen = ({ route, navigation }) => {
   const { product, orderId } = route.params;
-  const [rating, setRating] = useState(5); 
+  const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState('');
-  const [userId, setUserId] = useState(null); 
-  const [userName, setUserName] = useState(''); 
+  const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState('');
   const [productDetails, setProductDetails] = useState(null);
-  const [userReview, setUserReview] = useState(null); 
+  const [userReview, setUserReview] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]); // Lưu trữ danh sách ảnh người dùng chọn
 
   // Lấy userId từ Firebase Authentication
@@ -23,13 +23,14 @@ const ProductReviewScreen = ({ route, navigation }) => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUserId(user.uid); 
+        setUserId(user.uid);
       } else {
-        setUserId(null); 
+        setUserId(null);
       }
     });
 
-    return () => unsubscribe(); 
+
+    return () => unsubscribe();
   }, []);
 
   // Lấy thông tin người dùng từ Database
@@ -51,7 +52,7 @@ const ProductReviewScreen = ({ route, navigation }) => {
     onValue(productRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setProductDetails(data); 
+        setProductDetails(data);
       }
     });
   }, [product.id]);
@@ -64,11 +65,11 @@ const ProductReviewScreen = ({ route, navigation }) => {
         const data = snapshot.val();
         if (data) {
           setUserReview(data);
-          setRating(data.rating); 
-          setReviewText(data.reviewText); 
+          setRating(data.rating);
+          setReviewText(data.reviewText);
           setSelectedImages(data.images || []); // Lấy danh sách ảnh từ database
         } else {
-          setUserReview(null); 
+          setUserReview(null);
         }
       });
     }
@@ -94,19 +95,19 @@ const ProductReviewScreen = ({ route, navigation }) => {
     };
 
     try {
-      const reviewRef = ref(database, `products/${product.id}/orders/${orderId}/reviews/${userId}`); 
+      const reviewRef = ref(database, `products/${product.id}/orders/${orderId}/reviews/${userId}`);
       await set(reviewRef, reviewItem);
 
       const userRef = ref(database, `users/${userId}`);
       const userSnapshot = await get(userRef);
       const userData = userSnapshot.val();
-      const newPoints = (userData.points || 0) + 1000; 
-      
+      const newPoints = (userData.points || 0) + 1000;
+
       await set(userRef, { ...userData, points: newPoints });
 
       Alert.alert('Thông báo', 'Đánh giá của bạn đã được gửi thành công. Bạn nhận được 1000 điểm!');
       navigation.navigate('OrderScreen', { reviewSubmitted: true });
-      setRating(0); 
+      setRating(0);
       setReviewText('');
       setSelectedImages([]); // Đặt lại danh sách ảnh sau khi gửi
     } catch (error) {
@@ -178,7 +179,7 @@ const ProductReviewScreen = ({ route, navigation }) => {
         <View style={tw`bg-white p-4 rounded-xl shadow-lg`}>
           <Text style={tw`text-2xl font-bold mb-2 text-gray-800`}>{product.name}</Text>
           <Text style={tw`text-2xl font-bold mb-2 text-yellow-600`}>{formatPrice(product.totalPrice)}</Text>
-          
+
           {productDetails && (
             <>
               <Text style={tw`text-lg font-bold mb-2 text-gray-600`}>Hãng: {productDetails.brand}</Text>
@@ -200,7 +201,7 @@ const ProductReviewScreen = ({ route, navigation }) => {
                   </View>
                 ))}
               </View>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={tw`bg-green-500 flex-row justify-center items-center p-3 rounded-md mt-4 shadow-lg`}
                 onPress={() => navigation.goBack()}
               >
@@ -249,7 +250,7 @@ const ProductReviewScreen = ({ route, navigation }) => {
                   </View>
                 ))}
               </View>
-              <TouchableOpacity 
+              <TouchableOpacity
                 style={tw`bg-green-500 flex-row justify-center items-center p-3 rounded-md mt-4 shadow-lg`}
                 onPress={handleSubmitReview}
               >

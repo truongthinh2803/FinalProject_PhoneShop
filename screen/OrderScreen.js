@@ -4,7 +4,7 @@ import tw from 'tailwind-react-native-classnames';
 import { auth, database } from '../firebase';
 import { ref, onValue, update } from 'firebase/database';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
 const OrderScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +24,7 @@ const OrderScreen = () => {
 
   useEffect(() => {
     const userId = auth.currentUser ? auth.currentUser.uid : null;
-  
+
     if (userId) {
       const ordersRef = ref(database, `users/${userId}/orders`);
       onValue(
@@ -36,14 +36,14 @@ const OrderScreen = () => {
               id: key,
               ...value,
             }));
-  
+
             const parseOrderTime = (orderTime) => {
               const [time, date] = orderTime.split(', ');
               const [hours, minutes, seconds] = time.split(':');
               const [day, month, year] = date.split('/');
               return new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}`);
             };
-  
+
             ordersList.sort((a, b) => parseOrderTime(b.orderTime) - parseOrderTime(a.orderTime));
             setOrders(ordersList);
           } else {
@@ -59,7 +59,8 @@ const OrderScreen = () => {
       setLoading(false);
     }
   }, []);
-  
+
+  //lọc
   const filterOrders = () => {
     if (selectedStatus === 'Tất cả') {
       return orders;
@@ -69,7 +70,9 @@ const OrderScreen = () => {
   };
 
   const calculateTotalAmount = () => {
-    return filterOrders().reduce((total, order) => total + order.totalAmount, 0);
+    return filterOrders()
+      .filter(order => order.status !== 'Đã hủy')
+      .reduce((total, order) => total + order.totalAmount, 0);
   };
 
   const handleCancelOrder = (orderId) => {
