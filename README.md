@@ -1,5 +1,5 @@
 # OnlineMobileSales
-
+Link dự án figma: https://www.figma.com/design/pRCWdaopyI2RpaZF4AoeaZ/Figma-mobile-design?t=ORnPLuYNI2eW9QRH-0
 ## Mô tả dự án
 **OnlineMobileSales** 
 
